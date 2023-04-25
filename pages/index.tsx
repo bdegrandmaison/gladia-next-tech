@@ -1,13 +1,19 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { GetServerSideProps } from 'next';
+import Container from '../components/Layout/Container';
+import HeroSection from '../components/Home/HeroSection';
+import { fetchUserSession } from '../lib/fetchUserSession';
+import { withSessionSsr } from '../lib/session';
+import { UserWithoutPassword } from '../interfaces';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
-)
+export const getServerSideProps: GetServerSideProps = withSessionSsr(async (ctx) => {
+  const user = await fetchUserSession(ctx);
+  return { props: { user } };
+});
 
-export default IndexPage
+const IndexPage = ({ user }: { user: UserWithoutPassword | null }) => (
+  <Container title="Welcome to Gladia" user={user || null}>
+    <HeroSection />
+  </Container>
+);
+
+export default IndexPage;

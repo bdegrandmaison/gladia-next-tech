@@ -1,20 +1,52 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
+    "docker:compose": "docker-compose up -d",
     "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
+    "format": "prettier --write .",
+    "server:dev": "wait-on tcp:6379 && npm run dev",
+    "start": "concurrently 'npm:docker:compose' 'npm:server:dev'",
+    "lint": "next lint",
+    "lint-fix": "next lint --fix",
+    "type-check": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "next": "latest",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.1",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "axios": "^1.3.5",
+    "bcrypt": "^5.1.0",
+    "bootstrap": "^5.2.3",
+    "concurrently": "^8.0.1",
+    "eslint": "^8.38.0",
+    "eslint-config-next": "^13.3.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "express": "^4.18.2",
+    "ioredis": "^5.3.2",
+    "iron-session": "^6.3.1",
+    "next": "^13.3.0",
+    "next-connect": "^0.13.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "reactstrap": "^9.1.9",
+    "redis": "^4.6.5",
+    "redis-json": "^6.0.3",
+    "redis-modules-sdk": "^1.4.0",
+    "stripe": "^12.1.1",
+    "uuid": "^9.0.0",
+    "wait-on": "^7.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.7",
     "typescript": "^4.8.3"
   }
 }
