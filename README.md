@@ -71,6 +71,14 @@ You will obviously need yarn (available at [https://yarnpkg.com/getting-started/
    ```
 7. Once the app is running, you can log in with the following credentials "username: user" and "password: password"
 
+### Misc.
+
+This application is using types generated with the package swagger-typescript-api [https://github.com/acacode/swagger-typescript-api](https://github.com/acacode/swagger-typescript-api).
+
+It also uses RedisJSON as a database for ease of use with UUID and BCrypt to encrypt user passwords and iron-session to manage user sessions.
+
+For general styling, Bootstrap and Reactstrap have been used.
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
