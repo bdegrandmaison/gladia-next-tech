@@ -23,8 +23,6 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 This project is a showcase of the Gladia API. It consists of a simple application with user authentication. When the user is signed in, he can proceed to payment and finally access the transcription page where the magic can happen.
 
 ### Built With
@@ -51,11 +49,11 @@ You will obviously need yarn (available at [https://yarnpkg.com/getting-started/
 
 ### Installation
 
-1. Get a free Gladia API Key at [https://example.com](https://example.com)
+1. Get a free Gladia API Key at [https://app.gladia.io/auth/signin](https://app.gladia.io/auth/signin)
 2. Get a free Stripe API Key at [https://stripe.com/fr](https://stripe.com/fr)
 3. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/bdegrandmaison/gladia-next-tech.git
    ```
 4. Install NPM packages
    ```sh
