@@ -70,6 +70,7 @@ You will obviously need yarn (available at [https://yarnpkg.com/getting-started/
    yarn start
    ```
 7. Once the app is running, you can log in with the following credentials "username: user" and "password: password"
+8. For the payment , one can use this card number "4242 4242 4242 4242", the rest of the information does not matter.
 
 ### Misc.
 
