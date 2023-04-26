@@ -11,6 +11,14 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 export const getServerSideProps: GetServerSideProps = withSessionSsr(async (ctx) => {
   const user = await fetchUserSession(ctx);
+  if (!user || (user && !user.isLoggedIn)) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
   return { props: { user } };
 });
 

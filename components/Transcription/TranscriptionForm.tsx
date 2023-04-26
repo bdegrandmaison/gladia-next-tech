@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useCallback, useMemo, useState } from 'react';
 import { Form, FormGroup, FormText, Button, Spinner } from 'reactstrap';
 import {
   bodyRecognizeAudioTextAudioTranscriptionPostLanguageBehaviourForInputArray,
@@ -82,7 +82,7 @@ export const TranscriptionForm = ({ userChoice }: { userChoice: UserChoice }) =>
   const [videoResult, setVideoResult] = useState<TranscribeVideoTextVideoTranscriptionPostData>();
 
   const audioTranscriptionMutation = useMutation({
-    mutationFn: (formData: BodyRecognizeAudioTextAudioTranscriptionPost) => {
+    mutationFn: useCallback((formData: BodyRecognizeAudioTextAudioTranscriptionPost) => {
       const audioClient = new Audio();
       return audioClient.recognizeAudioTextAudioTranscriptionPost({}, formData, {
         headers: {
@@ -91,14 +91,14 @@ export const TranscriptionForm = ({ userChoice }: { userChoice: UserChoice }) =>
           'Content-Type': ContentType.FormData,
         },
       });
-    },
-    onSuccess: (data) => {
+    }, []),
+    onSuccess: useCallback((data) => {
       setAudioResult(data);
-    },
+    }, []),
   });
 
   const videoTranscriptionMutation = useMutation({
-    mutationFn: (formData: BodyTranscribeVideoTextVideoTranscriptionPost) => {
+    mutationFn: useCallback((formData: BodyTranscribeVideoTextVideoTranscriptionPost) => {
       const videoClient = new Video();
       return videoClient.transcribeVideoTextVideoTranscriptionPost({}, formData, {
         headers: {
@@ -107,10 +107,10 @@ export const TranscriptionForm = ({ userChoice }: { userChoice: UserChoice }) =>
           'Content-Type': 'multipart/form-data',
         },
       });
-    },
-    onSuccess: (data) => {
+    }, []),
+    onSuccess: useCallback((data) => {
       setVideoResult(data);
-    },
+    }, []),
   });
 
   const noAudioFileOrURL = userChoice === UserChoice.Audio && !audioFile && !audioURL;
@@ -128,42 +128,60 @@ export const TranscriptionForm = ({ userChoice }: { userChoice: UserChoice }) =>
   const videoQuerySuccessful =
     userChoice === UserChoice.Audio && videoTranscriptionMutation.isSuccess && videoResult;
 
-  function dataSwitch(
-    keyForData:
-      | BodyRecognizeAudioTextAudioTranscriptionPostKeys
-      | BodyTranscribeVideoTextVideoTranscriptionPostKeys,
-  ) {
-    switch (keyForData) {
-      case 'language_behaviour':
-        return languageBehaviour;
-      case 'language':
-        return audioLanguage;
-      case 'toggle_noise_reduction':
-        return noiseReduction;
-      case 'transcription_hint':
-        return transcriptionHint;
-      case 'toggle_diarization':
-        return diarization;
-      case 'toggle_direct_translate':
-        return directTranslate;
-      case 'target_translation_language':
-        return targetLanguage;
-      case 'toggle_text_emotion_recognition':
-        return textEmotionRecognition;
-      case 'toggle_summarization':
-        return summarization;
-      case 'toggle_chapterization':
-        return chapterization;
-      case 'webhook_url':
-        return webHookURL;
-      case 'diarization_max_speakers':
-        return diarizationMaxSpeakers;
-      case 'output_format':
-        return outputFormat;
-      default:
-        return;
-    }
-  }
+  const dataSwitch = useMemo(
+    () =>
+      (
+        keyForData:
+          | BodyRecognizeAudioTextAudioTranscriptionPostKeys
+          | BodyTranscribeVideoTextVideoTranscriptionPostKeys,
+      ) => {
+        switch (keyForData) {
+          case 'language_behaviour':
+            return languageBehaviour;
+          case 'language':
+            return audioLanguage;
+          case 'toggle_noise_reduction':
+            return noiseReduction;
+          case 'transcription_hint':
+            return transcriptionHint;
+          case 'toggle_diarization':
+            return diarization;
+          case 'toggle_direct_translate':
+            return directTranslate;
+          case 'target_translation_language':
+            return targetLanguage;
+          case 'toggle_text_emotion_recognition':
+            return textEmotionRecognition;
+          case 'toggle_summarization':
+            return summarization;
+          case 'toggle_chapterization':
+            return chapterization;
+          case 'webhook_url':
+            return webHookURL;
+          case 'diarization_max_speakers':
+            return diarizationMaxSpeakers;
+          case 'output_format':
+            return outputFormat;
+          default:
+            return;
+        }
+      },
+    [
+      languageBehaviour,
+      audioLanguage,
+      noiseReduction,
+      transcriptionHint,
+      diarization,
+      directTranslate,
+      targetLanguage,
+      textEmotionRecognition,
+      summarization,
+      chapterization,
+      webHookURL,
+      diarizationMaxSpeakers,
+      outputFormat,
+    ],
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

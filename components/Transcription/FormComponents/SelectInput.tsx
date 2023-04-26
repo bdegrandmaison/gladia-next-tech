@@ -34,8 +34,9 @@ export const SelectInput = <T extends string>({
           handleChange(e.target.value as T);
         }}
         value={value}
+        defaultValue=""
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           Optional
         </option>
         {data.map(({ label: mappedLabel, value: mappedValue }) => (

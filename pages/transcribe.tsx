@@ -7,6 +7,22 @@ import { Choice } from '../components/Transcription/Choice';
 
 export const getServerSideProps: GetServerSideProps = withSessionSsr(async (ctx) => {
   const user = await fetchUserSession(ctx);
+  if (!user || (user && !user.isLoggedIn)) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+  if (user && !user.hasPaid) {
+    return {
+      redirect: {
+        destination: '/pay',
+        permanent: false,
+      },
+    };
+  }
   return { props: { user } };
 });
 
