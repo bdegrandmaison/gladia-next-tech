@@ -35,7 +35,7 @@ import { handleDownload } from '../../utils/handleDownload';
 import { ContentType } from '../../interfaces/gladia/http-client';
 import { DownloadButton } from './FormComponents/DownloadButton';
 
-const audioFormStyle = {
+const formStyle = {
   width: '90em',
   margin: '0 auto',
   padding: '2em',
@@ -237,7 +237,7 @@ export const TranscriptionForm = ({ userChoice }: { userChoice: UserChoice }) =>
   };
 
   return (
-    <Form onSubmit={handleSubmit} style={audioFormStyle} className="shadow-lg">
+    <Form onSubmit={handleSubmit} style={formStyle} className="shadow-lg">
       {userChoice === UserChoice.Audio ? (
         <>
           <FileInput

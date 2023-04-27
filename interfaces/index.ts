@@ -29,6 +29,8 @@ export type LoginRequest = {
   password: string;
 };
 
+export type CreateUserRequestBody = LoginRequest & { email: string };
+
 export type UserSession = IronSession & { user?: UserWithoutPassword };
 
 export type ReqSession = NextApiRequest & { session?: UserSession };
