@@ -23,11 +23,9 @@
 
 ## About The Project
 
-This project is a showcase of the Gladia API. It consists of a simple application with user authentication. When the user is signed in, he can proceed to payment and finally access the transcription page where the magic can happen.
+This project is a showcase of the Gladia API, it's meant to transcribe any video into a text, one can also select the output language. It consists of a simple application with user authentication. When the user is signed in, he can proceed to payment and finally access the transcription page where the magic can happen.
 
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 - [![Next][Next.js]][Next-url]
 - [![React][React.js]][React-url]
